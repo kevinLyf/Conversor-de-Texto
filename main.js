@@ -13,8 +13,6 @@ upperBtn.onclick = function() {
 
     textF.value = textI.value.toUpperCase()
 
-    caracter.innerText = `Quantidade de caracteres: ${textI.value.length}`
-    word.innerText = `Total de palavras: ${textI.value.trim().split(" ").length}`
 
 
 }
@@ -24,8 +22,6 @@ lowerBtn.onclick = function() {
     
     textF.value = textI.value.toLowerCase()
 
-    caracter.innerText = `Quantidade de caracteres: ${textI.value.length}`
-    word.innerText = `Total de palavras: ${textI.value.trim().split(" ").length}`
 
 }
 
@@ -35,22 +31,40 @@ clearBtn.onclick = function() {
     textI.value = ''
     textF.value = ''
 
-    caracter.innerText = `Quantidade de caracteres: ${textI.value.length}`
-    word.innerText = `Total de palavras: ${textI.value.split(" ").length}`
 
 }
 
 // BOTÃO COPIAR
-copyBtn.onclick = async function() {
+copyBtn.onclick =  function() {
 
     if(!textI.value.trim()){
-        alert("Escreva algo antes de copiar!");
+       return alert("Escreva algo antes de copiar!");
+    }
+    if(!textF.value.trim()) {
+
+        textI.select();
+        navigator.clipboard.writeText(textI.value);
+        copyBtn.style.backgroundColor = '#b3e36f'
+        copyBtn.innerText = "Copiado!"
+        setTimeout(()=> {
+            copyBtn.innerText = "Copiar"
+            copyBtn.style.backgroundColor = '#007bff'
+        },3000)
+
+
+
+    }else {
+        textF.select();
+        navigator.clipboard.writeText(textF.value);
+        copyBtn.style.backgroundColor = '#b3e36f'
+        copyBtn.innerText = "Copiado!"
+        setTimeout(()=> {
+            copyBtn.innerText = "Copiar"
+            copyBtn.style.backgroundColor = '#007bff'
+        },3000)
 
     }
-    textF.select();
-    await navigator.clipboard.writeText(textF.value);
-    console.log(navigator.clipboard.writeText(textF.value))
-    alert('COPIADO!')
+
 }
 
 // PRIMEIRA LETRA MAIÚSCULA EM CADA PALAVRA
@@ -58,7 +72,7 @@ firstBtn.onclick = function() {
 
     console.log(textI.value[0].toUpperCase() + textI.value.substr(1).split(" "))
   
-    let palavras = textI.valu.split(" ");
+    let palavras = textI.value.split(" ");
     
 
    
@@ -67,9 +81,12 @@ firstBtn.onclick = function() {
     }
     textF.value = palavras.join(" ")
 
-    caracter.innerText = `Quantidade de caracteres: ${textI.value.length}`
-    word.innerText = `Total de palavras: ${textI.value.trim().split(" ").length}`
 }
 
+setInterval(() => {
+    caracter.innerText = textI.value.length
+    word.innerText = textI.value.trim().split(" ").length
+    
+}, 50);
 
 
